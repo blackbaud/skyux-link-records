@@ -1,0 +1,86 @@
+<div *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" class="link-records-item-info sky-emphasized">
+  {{'skyux_link_records_item_info_match' | skyAppResources}}
+</div>
+<div *ngIf="record.status == STATUSES.Linked" class="link-records-item-info sky-emphasized">
+  {{'skyux_link_records_item_info_linked' | skyAppResources}}
+</div>
+<div *ngIf="record.status == STATUSES.NoMatch" class="link-records-item-info sky-emphasized">
+  {{'skyux_link_records_item_info_no_match' | skyAppResources}}
+</div>
+<div *ngIf="record.status == STATUSES.Created" class="link-records-item-info sky-emphasized">
+  {{'skyux_link_records_item_info_created' | skyAppResources}}
+</div>
+<div *ngIf="record.status == STATUSES.Edit" class="link-records-item-info sky-emphasized">
+  {{'skyux_link_records_item_info_edit' | skyAppResources}}
+</div>
+<div class="link-records-item">
+  <div class="link-records-item-original sky-shadow">
+    <div class="link-records-item-header sky-subsection-heading sky-padding-even-default">
+      <sky-link-records-renderer [item]="record.item" [match]="record.match" [fields]="record.matchFields" [template]="itemTitleTemplate || defaultItemTitleTemplate"></sky-link-records-renderer>
+    </div>
+    <sky-link-records-renderer *ngIf="record.status != STATUSES.Edit" class="link-records-item-content" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [template]="itemTemplate || defaultItemTemplate"></sky-link-records-renderer>
+    <sky-link-records-item-diff *ngIf="record.status == STATUSES.Edit" [key]="record.key" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [readOnly]="true"  [showNewFieldValues]="showNewFieldValues" class="link-records-item-content">
+    </sky-link-records-item-diff>
+    <div class="link-records-item-footer"></div>
+  </div>
+  <div
+    aria-hidden="true"
+    class="link-records-item-status">
+    <div class="link-records-item-status-content">
+      <sky-icon
+        [icon]="icon"
+        [ngClass]="'sky-link-record-item-icon-' + icon"
+      >
+      </sky-icon>
+    </div>
+  </div>
+  <div class="link-records-item-match sky-shadow">
+    <div class="link-records-item-header sky-subsection-heading sky-padding-even-default">
+      <div *ngIf="record.status == STATUSES.Created">
+          {{'skyux_link_records_item_header_created' | skyAppResources}}
+      </div>
+      <div *ngIf="record.status == STATUSES.NoMatch">
+          {{'skyux_link_records_item_header_no_match' | skyAppResources}}
+      </div>
+      <div *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected || record.status == STATUSES.Linked || record.status == STATUSES.Edit">
+          {{'skyux_link_records_item_header_match' | skyAppResources}}
+      </div>
+    </div>
+    <sky-link-records-renderer *ngIf="record.status != STATUSES.Edit && record.status != STATUSES.NoMatch && record.status != STATUSES.Selected" class="link-records-item-content" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [template]="matchTemplate || defaultMatchTemplateContent"></sky-link-records-renderer>
+    <sky-link-records-renderer *ngIf="record.status == STATUSES.NoMatch || record.status == STATUSES.Selected" class="link-records-item-content" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [template]="noMatchTemplate || defaultNoMatchTemplateContent"></sky-link-records-renderer>
+    <sky-link-records-item-diff *ngIf="record.status == STATUSES.Edit" [key]="record.key" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [selectedByDefault]="selectedByDefault" [showNewFieldValues]="showNewFieldValues" class="link-records-item-content"></sky-link-records-item-diff>
+    <div class="link-records-item-footer">
+      <button *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" (click)="edit()" class="sky-btn sky-btn-primary">
+          {{'skyux_link_records_item_footer_link' | skyAppResources}}
+      </button>
+      <button *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" (click)="unlink()" class="sky-btn sky-btn-default">
+          {{'skyux_link_records_item_footer_search' | skyAppResources}}
+      </button>
+      <button *ngIf="record.status == STATUSES.Linked || record.status == STATUSES.Created" (click)="unlink()" class="sky-btn sky-btn-link">
+          {{'skyux_link_records_item_footer_unlink' | skyAppResources}}
+      </button>
+      <button *ngIf="record.status == STATUSES.NoMatch" (click)="create()" class="sky-btn sky-btn-default">
+          {{'skyux_link_records_item_footer_create' | skyAppResources}}
+      </button>
+      <button *ngIf="record.status == STATUSES.Edit" (click)="link()" class="sky-btn sky-btn-primary">
+        {{ (updatedFieldsTotal | async) > 0 ? ('skyux_link_records_item_footer_link_with_updating' | skyAppResources) + ' (' + (updatedFieldsTotal | async) + ')' : ('skyux_link_records_item_footer_link_without_updating' | skyAppResources) }}
+      </button>
+      <button *ngIf="record.status == STATUSES.Edit" (click)="cancelEdit()" class="sky-btn sky-btn-link">
+          {{'skyux_link_records_item_footer_cancel' | skyAppResources}}
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #defaultItemTitleTemplate let-item="item">
+  {{'skyux_link_records_item_title_default' | skyAppResources}}
+</ng-template>
+<ng-template #defaultItemTemplate let-item="item">
+  {{ item?.id }}
+</ng-template>
+<ng-template #defaultMatchTemplateContent let-match="match">
+  {{ match?.item?.id}}
+</ng-template>
+<ng-template #defaultNoMatchTemplateContent let-match="match">
+    {{'skyux_link_records_item_content_no_match' | skyAppResources}}
+</ng-template>
