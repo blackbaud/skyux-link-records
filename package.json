@@ -30,12 +30,14 @@
     "@angular/core": "^4.3.6",
     "@angular/router": "^4.3.6",
     "@skyux/core": "^3.1.0",
-    "@skyux/i18n": "^3.0.1",
-    "@skyux/indicators": ">=3.0.0-rc.0",
     "@skyux/forms": "^3.0.0-rc.0",
+    "@skyux/i18n": "^3.0.1",
+    "@skyux/indicators": "^3.0.0-rc.0",
     "rxjs": "^5.4.3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "microedge-rxstate": "2.0.2"
+  },
   "devDependencies": {
     "@angular/animations": "4.3.6",
     "@angular/common": "4.3.6",
@@ -55,7 +57,7 @@
     "@skyux/i18n": "3.0.1",
     "@skyux/indicators": "3.0.0-rc.0",
     "core-js": "2.4.1",
-    "rxjs": "^5.4.3",
+    "rxjs": "5.4.3",
     "ts-node": "3.0.4",
     "tslint": "5.2.0",
     "typescript": "2.3.2",
