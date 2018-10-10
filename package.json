@@ -33,8 +33,7 @@
     "@skyux/forms": "^3.0.0-rc.0",
     "@skyux/i18n": "^3.0.1",
     "@skyux/indicators": "^3.0.0-rc.0",
-    "microedge-rxstate": "^2.0.2",
-    "rxjs": "^5.4.3"
+    "microedge-rxstate": "^2.0.2"
   },
   "dependencies": {},
   "devDependencies": {
