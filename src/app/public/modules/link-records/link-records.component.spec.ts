@@ -8,6 +8,10 @@ import {
 import 'rxjs/add/observable/of';
 
 import {
+  expect
+} from '@skyux-sdk/testing';
+
+import {
   SkyLinkRecordsModule
 } from './link-records.module';
 import {
@@ -335,4 +339,11 @@ describe('Component: SkyLinkRecordsComponent', () => {
     expect(linkRecordItem.match).toBeDefined();
     expect(linkRecordItem.matchFields).toBeDefined();
   });
+
+  it('should pass accessibility', async(() => {
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement).toBeAccessible();
+    });
+  }));
 });
