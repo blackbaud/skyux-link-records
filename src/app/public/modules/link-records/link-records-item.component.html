@@ -1,17 +1,17 @@
 <div *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" class="link-records-item-info sky-emphasized">
-  {{'skyux_link_records_item_info_match' | skyAppResources}}
+  {{'skyux_link_records_item_info_match' | skyLibResources}}
 </div>
 <div *ngIf="record.status == STATUSES.Linked" class="link-records-item-info sky-emphasized">
-  {{'skyux_link_records_item_info_linked' | skyAppResources}}
+  {{'skyux_link_records_item_info_linked' | skyLibResources}}
 </div>
 <div *ngIf="record.status == STATUSES.NoMatch" class="link-records-item-info sky-emphasized">
-  {{'skyux_link_records_item_info_no_match' | skyAppResources}}
+  {{'skyux_link_records_item_info_no_match' | skyLibResources}}
 </div>
 <div *ngIf="record.status == STATUSES.Created" class="link-records-item-info sky-emphasized">
-  {{'skyux_link_records_item_info_created' | skyAppResources}}
+  {{'skyux_link_records_item_info_created' | skyLibResources}}
 </div>
 <div *ngIf="record.status == STATUSES.Edit" class="link-records-item-info sky-emphasized">
-  {{'skyux_link_records_item_info_edit' | skyAppResources}}
+  {{'skyux_link_records_item_info_edit' | skyLibResources}}
 </div>
 <div class="link-records-item">
   <div class="link-records-item-original sky-shadow">
@@ -37,13 +37,13 @@
   <div class="link-records-item-match sky-shadow">
     <div class="link-records-item-header sky-subsection-heading sky-padding-even-default">
       <div *ngIf="record.status == STATUSES.Created">
-          {{'skyux_link_records_item_header_created' | skyAppResources}}
+          {{'skyux_link_records_item_header_created' | skyLibResources}}
       </div>
       <div *ngIf="record.status == STATUSES.NoMatch">
-          {{'skyux_link_records_item_header_no_match' | skyAppResources}}
+          {{'skyux_link_records_item_header_no_match' | skyLibResources}}
       </div>
       <div *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected || record.status == STATUSES.Linked || record.status == STATUSES.Edit">
-          {{'skyux_link_records_item_header_match' | skyAppResources}}
+          {{'skyux_link_records_item_header_match' | skyLibResources}}
       </div>
     </div>
     <sky-link-records-renderer *ngIf="record.status != STATUSES.Edit && record.status != STATUSES.NoMatch && record.status != STATUSES.Selected" class="link-records-item-content" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [template]="matchTemplate || defaultMatchTemplateContent"></sky-link-records-renderer>
@@ -51,29 +51,29 @@
     <sky-link-records-item-diff *ngIf="record.status == STATUSES.Edit" [key]="record.key" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [selectedByDefault]="selectedByDefault" [showNewFieldValues]="showNewFieldValues" class="link-records-item-content"></sky-link-records-item-diff>
     <div class="link-records-item-footer">
       <button *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" (click)="edit()" class="sky-btn sky-btn-primary">
-          {{'skyux_link_records_item_footer_link' | skyAppResources}}
+          {{'skyux_link_records_item_footer_link' | skyLibResources}}
       </button>
       <button *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" (click)="unlink()" class="sky-btn sky-btn-default">
-          {{'skyux_link_records_item_footer_search' | skyAppResources}}
+          {{'skyux_link_records_item_footer_search' | skyLibResources}}
       </button>
       <button *ngIf="record.status == STATUSES.Linked || record.status == STATUSES.Created" (click)="unlink()" class="sky-btn sky-btn-link">
-          {{'skyux_link_records_item_footer_unlink' | skyAppResources}}
+          {{'skyux_link_records_item_footer_unlink' | skyLibResources}}
       </button>
       <button *ngIf="record.status == STATUSES.NoMatch" (click)="create()" class="sky-btn sky-btn-default">
-          {{'skyux_link_records_item_footer_create' | skyAppResources}}
+          {{'skyux_link_records_item_footer_create' | skyLibResources}}
       </button>
       <button *ngIf="record.status == STATUSES.Edit" (click)="link()" class="sky-btn sky-btn-primary">
-        {{ (updatedFieldsTotal | async) > 0 ? ('skyux_link_records_item_footer_link_with_updating' | skyAppResources) + ' (' + (updatedFieldsTotal | async) + ')' : ('skyux_link_records_item_footer_link_without_updating' | skyAppResources) }}
+        {{ (updatedFieldsTotal | async) > 0 ? ('skyux_link_records_item_footer_link_with_updating' | skyLibResources) + ' (' + (updatedFieldsTotal | async) + ')' : ('skyux_link_records_item_footer_link_without_updating' | skyLibResources) }}
       </button>
       <button *ngIf="record.status == STATUSES.Edit" (click)="cancelEdit()" class="sky-btn sky-btn-link">
-          {{'skyux_link_records_item_footer_cancel' | skyAppResources}}
+          {{'skyux_link_records_item_footer_cancel' | skyLibResources}}
       </button>
     </div>
   </div>
 </div>
 
 <ng-template #defaultItemTitleTemplate let-item="item">
-  {{'skyux_link_records_item_title_default' | skyAppResources}}
+  {{'skyux_link_records_item_title_default' | skyLibResources}}
 </ng-template>
 <ng-template #defaultItemTemplate let-item="item">
   {{ item?.id }}
@@ -82,5 +82,5 @@
   {{ match?.item?.id}}
 </ng-template>
 <ng-template #defaultNoMatchTemplateContent let-match="match">
-    {{'skyux_link_records_item_content_no_match' | skyAppResources}}
+    {{'skyux_link_records_item_content_no_match' | skyLibResources}}
 </ng-template>

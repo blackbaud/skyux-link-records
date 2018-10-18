@@ -19,6 +19,10 @@ import {
 } from '@skyux/indicators';
 
 import {
+  SkyLinkRecordsResourcesModule
+} from '../shared';
+
+import {
   SkyLinkRecordsComponent
 } from './link-records.component';
 import {
@@ -59,7 +63,8 @@ import {
     CommonModule,
     SkyCheckboxModule,
     SkyI18nModule,
-    SkyIconModule
+    SkyIconModule,
+    SkyLinkRecordsResourcesModule
   ],
   exports: [
     SkyLinkRecordsComponent,
