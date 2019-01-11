@@ -1,3 +1,7 @@
+# 3.0.0 (2019-01-11)
+
+- Major version release.
+
 # 3.0.0-rc.2 (2018-11-08)
 
 - Added support for `@skyux/i18n@3.3.0`, which addresses some internationalization issues. [#3](https://github.com/blackbaud/skyux-link-records/pull/3)
