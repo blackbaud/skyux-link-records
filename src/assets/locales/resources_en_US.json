@@ -1,23 +1,23 @@
 {
   "skyux_link_records_item_info_match": {
     "_description": "",
-    "message": "A possible match has been identified for this record. Would you like to link it?"
+    "message": "We identified a possible match for this record. Would you like to link it?"
   },
   "skyux_link_records_item_info_no_match": {
     "_description": "",
-    "message": "We are not able to identify a possible match for this record."
+    "message": "We could not identify a possible match for this record."
   },
   "skyux_link_records_item_info_linked": {
     "_description": "",
-    "message": "You have successfully linked this record!"
+    "message": "You successfully linked this record!"
   },
   "skyux_link_records_item_info_created": {
     "_description": "",
-    "message": "You have successfully created and linked this record!"
+    "message": "You successfully created and linked this record!"
   },
   "skyux_link_records_item_info_edit": {
     "_description": "",
-    "message": "Do you want to update this record with this new information?"
+    "message": "Do you want to update this record with the new information?"
   },
   "skyux_link_records_item_header_created": {
     "_description": "",
@@ -49,7 +49,7 @@
   },
   "skyux_link_records_item_footer_link_with_updating": {
     "_description": "",
-    "message": "Apply Updates"
+    "message": "Apply updates"
   },
   "skyux_link_records_item_footer_link_without_updating": {
     "_description": "",
@@ -65,7 +65,7 @@
   },
   "skyux_link_records_item_content_no_match": {
     "_description": "",
-    "message": "no match"
+    "message": "No match"
   },
   "skyux_link_records_item_diff_header_field": {
     "_description": "",
