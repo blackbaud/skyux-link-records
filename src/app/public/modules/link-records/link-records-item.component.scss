@@ -6,7 +6,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 710px;
 
   .link-records-item-info {
     text-align: center;
@@ -14,7 +13,6 @@
 
   .link-records-item {
     display: flex;
-    flex-direction: row;
     align-items: stretch;
     justify-content: center;
     margin: 10px 0 40px;
@@ -94,10 +92,23 @@
   }
 
   @media(max-width: $sky-screen-sm-min) {
-    width: 350px;
-
     .link-records-item {
       flex-direction: column;
     }
+  }
+}
+
+@include sky-host-media-container-xs-min() {
+  width: 350px;
+
+  .link-records-item {
+    flex-direction: column;
+  }
+}
+@include sky-host-media-container-sm-min() {
+  width: 710px;
+
+  .link-records-item {
+    flex-direction: row;
   }
 }
