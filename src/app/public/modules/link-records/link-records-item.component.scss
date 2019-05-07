@@ -98,14 +98,14 @@
   }
 }
 
-@include sky-host-media-container-xs-min() {
+@include sky-host-responsive-container-xs-min() {
   width: 350px;
 
   .link-records-item {
     flex-direction: column;
   }
 }
-@include sky-host-media-container-sm-min() {
+@include sky-host-responsive-container-sm-min() {
   width: 710px;
 
   .link-records-item {
