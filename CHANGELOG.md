@@ -1,3 +1,8 @@
+# 3.1.0 (2019-05-28)
+
+- Added the ability to trigger responsive styles based on a parent component. [#9](https://github.com/blackbaud/skyux-link-records/pull/9)
+- Updated UI text and messages for the link records component. [#7](https://github.com/blackbaud/skyux-link-records/pull/7)
+
 # 3.0.0 (2019-01-11)
 
 - Major version release.
