@@ -3,17 +3,17 @@ import {
 } from '@angular/core';
 
 import {
+  SkyAppLinkModule
+} from '@skyux/router';
+
+import {
   SkyLinkRecordsModule
 } from './public';
 
 @NgModule({
-  imports: [
-    SkyLinkRecordsModule
-  ],
   exports: [
+    SkyAppLinkModule,
     SkyLinkRecordsModule
-  ],
-  providers: [],
-  entryComponents: []
+  ]
 })
 export class AppExtrasModule { }
