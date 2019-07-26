@@ -131,11 +131,9 @@ describe('Component: SkyLinkRecordsComponent', () => {
     component.keyIdSelector = 'testKey';
     component.matchFields = Observable.of(fields);
 
-    try {
-      fixture.detectChanges();
-    } catch (error) {
-      expect(error.message).toEqual("'keyIdSelector' cannot be a match field.");
-    }
+    expect(
+      fixture.detectChanges
+    ).toThrow();
   }));
 
   it('Linked items are loaded in results state on ngOnInit', async(() => {
