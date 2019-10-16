@@ -1,3 +1,7 @@
+# 3.2.0 (2019-10-16)
+
+- Added support for `@skyux-sdk/builder@3.10.0` and `microedge-rxstate@>=2.0.2`. [#11](https://github.com/blackbaud/skyux-link-records/pull/11)
+
 # 3.1.0 (2019-05-28)
 
 - Added the ability to trigger responsive styles based on a parent component. [#9](https://github.com/blackbaud/skyux-link-records/pull/9)
