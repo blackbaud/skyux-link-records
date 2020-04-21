@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+
+import {
+  Observable,
+  of as observableOf
+} from 'rxjs';
 
 @Component({
   selector: 'link-records-visual',
@@ -11,15 +14,15 @@ export class LinkRecordsVisualComponent {
 
   public newItem: any = { id: '99', address: 999, name: 'Lime', description: 'Laura eats limes.' };
 
-  public items: Observable<any> = Observable.of([
+  public items: Observable<any> = observableOf([
     { id: '1', address: 101, name: 'Apple', description: 'Anne eats apples' }
   ]);
 
-  public longFieldItems: Observable<any> = Observable.of([
+  public longFieldItems: Observable<any> = observableOf([
     { id: '1', address: 101, name: 'Apple', description: 'Rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetz' }
   ]);
 
-  public matches: Observable<Array<any>> = Observable.of([
+  public matches: Observable<Array<any>> = observableOf([
     {
       key: '1',
       status: 'suggested',
@@ -27,7 +30,7 @@ export class LinkRecordsVisualComponent {
     }
   ]);
 
-  public matches2: Observable<Array<any>> = Observable.of([
+  public matches2: Observable<Array<any>> = observableOf([
     {
       key: '1',
       status: 'no_match',

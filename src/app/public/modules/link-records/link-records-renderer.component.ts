@@ -20,7 +20,12 @@ export class SkyLinkRecordsRendererComponent implements OnInit {
   @Input() public match: SkyLinkRecordsMatchModel;
   @Input() public fields: Array<any>;
   @Input() public template: TemplateRef<any>;
-  @ViewChild('container', { read: ViewContainerRef }) public container: ViewContainerRef;
+
+  @ViewChild('container', {
+    read: ViewContainerRef,
+    static: true
+  })
+  public container: ViewContainerRef;
 
   constructor(public api: SkyLinkRecordsApi) {}
 

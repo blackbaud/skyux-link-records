@@ -1,4 +1,4 @@
-import { AsyncList, AsyncItem } from 'microedge-rxstate/dist';
+import { AsyncList, AsyncItem } from '@skyux/list-builder-common';
 import { SkyLinkRecordsMatchModel } from './matches/match.model';
 import { SkyLinkRecordsFieldModel } from './fields/field.model';
 import { SkyLinkRecordsResultModel } from './results/result.model';

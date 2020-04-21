@@ -1,6 +1,7 @@
 import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
-import { AsyncItem } from 'microedge-rxstate/dist';
-const moment = require('moment');
+import { AsyncItem } from '@skyux/list-builder-common';
+import * as moment_ from 'moment';
+const moment = moment_;
 
 import {
   SkyLinkRecordsSelectedSetSelectedAction,

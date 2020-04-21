@@ -5,6 +5,11 @@ import {
 } from '@angular/core/testing';
 
 import {
+  map as observableMap,
+  take
+} from 'rxjs/operators';
+
+import {
   SkyLinkRecordsMatchesLoadAction
 } from './state/matches/actions';
 import {
@@ -86,7 +91,10 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
     fixture.detectChanges();
 
-    state.map(s => s.matches.items).take(1)
+    state.pipe(
+      observableMap(s => s.matches.items),
+      take(1)
+    )
       .subscribe(m => {
         let match = m[0];
         expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
@@ -114,7 +122,10 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
     component.link();
 
-    state.map(s => s.matches.items).take(1)
+    state.pipe(
+      observableMap(s => s.matches.items),
+      take(1)
+    )
       .subscribe(m => {
         let match = m[0];
         expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
@@ -134,7 +145,7 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
     fixture.detectChanges();
 
-    component.updatedFieldsTotal.take(1)
+    component.updatedFieldsTotal.pipe(take(1))
       .subscribe(l => {
         let length = l;
         expect(length).toEqual(1);
@@ -171,20 +182,29 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
     component.unlink();
 
-    state.map(s => s.matches.items).take(1)
+    state.pipe(
+      observableMap(s => s.matches.items),
+      take(1)
+    )
       .subscribe(m => {
         let match = m[0];
         expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.NoMatch);
         expect(match.item).toBeUndefined();
       });
 
-    state.map(s => s.selected.item).take(1)
+    state.pipe(
+      observableMap(s => s.selected.item),
+      take(1)
+    )
       .subscribe(s => {
         let selected = s['1'];
         expect(selected).toBeUndefined();
       });
 
-    state.map(s => s.fields.item).take(1)
+    state.pipe(
+      observableMap(s => s.fields.item),
+      take(1)
+    )
       .subscribe(f => {
         let field = f['1'];
         expect(field).toBeUndefined();
@@ -213,7 +233,10 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
     component.create();
 
-    state.map(s => s.matches.items).take(1)
+    state.pipe(
+      observableMap(s => s.matches.items),
+      take(1)
+    )
       .subscribe(m => {
         let match = m[0];
         expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Created);
@@ -245,7 +268,10 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
     component.edit();
 
-    state.map(s => s.matches.items).take(1)
+    state.pipe(
+      observableMap(s => s.matches.items),
+      take(1)
+    )
       .subscribe(m => {
         let match = m[0];
         expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
@@ -275,13 +301,19 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
     component.edit();
 
-    state.map((s: any) => s.fields.item).take(1)
+    state.pipe(
+      observableMap((s: any) => s.fields.item),
+      take(1)
+    )
       .subscribe((f: any) => {
         let field = f['1'];
         expect(field).toEqual([]);
       });
 
-    state.map((s: any) => s.matches.items).take(1)
+    state.pipe(
+      observableMap((s: any) => s.matches.items),
+      take(1)
+    )
       .subscribe((m: any) => {
         let match = m[0];
         expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
@@ -325,7 +357,10 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
       component.edit();
 
-      state.map((s: any) => s.fields.item).take(1)
+      state.pipe(
+        observableMap((s: any) => s.fields.item),
+        take(1)
+      )
         .subscribe((f: any) => {
           let field = f['1'][0];
           expect(field.currentValue).toEqual(linkRecordMatch.item.description);
@@ -361,7 +396,10 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
       component.edit();
 
-      state.map((s: any) => s.fields.item).take(1)
+      state.pipe(
+        observableMap((s: any) => s.fields.item),
+        take(1)
+      )
         .subscribe((f: any) => {
           let field = f['1'][0];
           expect(field.currentValue).toEqual(linkRecordMatch.item[field.key]);
@@ -424,19 +462,28 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
     component.cancelEdit();
 
-    state.map(s => s.matches.items).take(1)
+    state.pipe(
+      observableMap(s => s.matches.items),
+      take(1)
+    )
       .subscribe(m => {
         let match = m[0];
         expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Suggested);
       });
 
-    state.map(s => s.selected.item).take(1)
+    state.pipe(
+      observableMap(s => s.selected.item),
+      take(1)
+    )
       .subscribe(s => {
         let selected = s['1'];
         expect(selected).toBeUndefined();
       });
 
-    state.map(s => s.fields.item).take(1)
+    state.pipe(
+      observableMap(s => s.fields.item),
+      take(1)
+    )
       .subscribe(f => {
         let field = f['1'];
         expect(field).toBeUndefined();

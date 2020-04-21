@@ -1,4 +1,9 @@
 import { async } from '@angular/core/testing/';
+
+import {
+  take
+} from 'rxjs/operators';
+
 import {
   SkyLinkRecordsStateDispatcher,
   SkyLinkRecordsStateModel,
@@ -42,7 +47,7 @@ describe('Injectable: Link Records API ', () => {
 
     linkRecordApi.addSelectedItem(expectedKey, newItem);
 
-    state.take(1).subscribe(s => {
+    state.pipe(take(1)).subscribe(s => {
       expect(s.matches.items[0].status).toEqual(SKY_LINK_RECORDS_STATUSES.Selected);
       expect(s.matches.items[0].item).toEqual(newItem);
     });
@@ -69,7 +74,7 @@ describe('Injectable: Link Records API ', () => {
 
     linkRecordApi.addSelectedItem(expectedKey, newItem);
 
-    state.take(1).subscribe(s => {
+    state.pipe(take(1)).subscribe(s => {
       expect(s.matches.items[0].item).toEqual(undefined);
     });
   }));
@@ -94,7 +99,7 @@ describe('Injectable: Link Records API ', () => {
 
     linkRecordApi.removeSelectedItem(expectedKey);
 
-    state.take(1).subscribe(s => {
+    state.pipe(take(1)).subscribe(s => {
       expect(s.matches.items[0].status).toEqual(SKY_LINK_RECORDS_STATUSES.NoMatch);
       expect(s.matches.items[0].item).toEqual(undefined);
     });

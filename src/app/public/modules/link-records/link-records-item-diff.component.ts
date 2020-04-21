@@ -1,11 +1,13 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import {
+  combineLatest
+} from 'rxjs';
 
-import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/take';
+import {
+  distinctUntilChanged,
+  map as observableMap
+} from 'rxjs/operators';
 
 import { SkyLinkRecordsState, SkyLinkRecordsStateDispatcher } from './state';
 import { SkyLinkRecordsSelectedSetSelectedAction } from './state/selected/actions';
@@ -51,9 +53,15 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
   }
 
   get fieldValues() {
-    return Observable.combineLatest(
-      this.state.map((s: any) => s.fields.item[this.key] || []).distinctUntilChanged(),
-      this.state.map((s: any) => s.selected.item[this.key] || {}).distinctUntilChanged(),
+    return combineLatest(
+      this.state.pipe(
+        observableMap((s: any) => s.fields.item[this.key] || []),
+        distinctUntilChanged()
+      ),
+      this.state.pipe(
+        observableMap((s: any) => s.selected.item[this.key] || {}),
+        distinctUntilChanged()
+      ),
       (fields: SkyLinkRecordsFieldModel[], selected: { [key: string]: boolean }) => {
         return fields.map(f => {
           let checkCurrentValue: boolean = this.showNewFieldValues ? true : f.currentValue;
