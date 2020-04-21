@@ -8,8 +8,16 @@ import {
   AfterContentInit
 } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/distinctUntilChanged';
+import {
+  Observable
+} from 'rxjs';
+
+import {
+  distinctUntilChanged,
+  filter,
+  map as observableMap,
+  take
+} from 'rxjs/operators';
 
 import { SkyLinkRecordsState, SkyLinkRecordsStateDispatcher } from './state';
 import {
@@ -67,10 +75,11 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
   }
 
   get updatedFieldsTotal(): Observable<number> {
-    return this.state
-      .map(s => s.selected.item[this.record.key] || {})
-      .map(fields => Object.keys(fields).filter(k => fields[k]).length)
-      .distinctUntilChanged();
+    return this.state.pipe(
+      observableMap(s => s.selected.item[this.record.key] || {}),
+      observableMap(fields => Object.keys(fields).filter(k => fields[k]).length),
+      distinctUntilChanged()
+    );
   }
 
   public link() {
@@ -138,9 +147,11 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
     this.dispatcher.next(new SkyLinkRecordsFieldsSetFieldsAction(this.record.key, filteredMatchFields));
 
     if (filteredMatchFields.length > 0) {
-      this.state.map((s: any) => s.selected.item)
-        .filter((s: any) => this.selectedByDefault !== undefined)
-        .take(1)
+      this.state.pipe(
+        observableMap((s: any) => s.selected.item),
+        filter((s: any) => this.selectedByDefault !== undefined),
+        take(1)
+      )
         .subscribe((selected: any) => {
           filteredMatchFields.forEach(matchField => {
             if (selected[this.record.key] && selected[this.record.key].hasOwnProperty(matchField.key)) {

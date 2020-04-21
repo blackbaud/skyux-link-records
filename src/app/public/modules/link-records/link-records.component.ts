@@ -11,9 +11,16 @@ import {
   forwardRef
 } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/operator/distinctUntilChanged';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf
+} from 'rxjs';
+
+import {
+  distinctUntilChanged,
+  map as observableMap
+} from 'rxjs/operators';
 
 import {
   SkyLinkRecordsState,
@@ -54,9 +61,9 @@ import { SkyLinkRecordsApi } from './link-records-api';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDestroy {
-  @Input() public items: Observable<Array<any>> = Observable.of([]);
-  @Input() public matches: Observable<Array<SkyLinkRecordsMatchModel>> = Observable.of([]);
-  @Input() public matchFields: Observable<Array<any>> = Observable.of([]);
+  @Input() public items: Observable<Array<any>> = observableOf([]);
+  @Input() public matches: Observable<Array<SkyLinkRecordsMatchModel>> = observableOf([]);
+  @Input() public matchFields: Observable<Array<any>> = observableOf([]);
   @Input() public itemTemplate: TemplateRef<any>;
   @Input() public matchTemplate: TemplateRef<any>;
   @Input() public noMatchTemplate: TemplateRef<any>;
@@ -84,31 +91,40 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
 
   public ngOnInit() {
     if (this.items && !(this.items instanceof Observable)) {
-      this.items = Observable.of(this.items);
+      this.items = observableOf(this.items);
     }
 
     if (this.matches && !(this.matches instanceof Observable)) {
-      this.matches = Observable.of(this.matches);
+      this.matches = observableOf(this.matches);
     }
 
     if (this.matchFields && !(this.matchFields instanceof Observable)) {
-      this.matchFields = Observable.of(this.matchFields);
+      this.matchFields = observableOf(this.matchFields);
     }
 
-    this.matches.distinctUntilChanged().subscribe(matches => {
+    this.matches.pipe(distinctUntilChanged()).subscribe(matches => {
       this.dispatcher.next(new SkyLinkRecordsMatchesLoadAction(matches, true));
     });
 
-    this.matchFields.distinctUntilChanged().subscribe(fields => {
+    this.matchFields.pipe(distinctUntilChanged()).subscribe(fields => {
       if (fields.findIndex(f => f.key === this.keyIdSelector) > -1) {
         throw new Error("'keyIdSelector' cannot be a match field.");
       }
     });
 
-    let sub = Observable.combineLatest(
-      this.state.map((s: any) => s.matches.items).distinctUntilChanged(),
-      this.state.map((s: any) => s.fields.item).distinctUntilChanged(),
-      this.state.map((s: any) => s.selected.item).distinctUntilChanged(),
+    let sub = combineLatest(
+      this.state.pipe(
+        observableMap((s: any) => s.matches.items),
+        distinctUntilChanged()
+      ),
+      this.state.pipe(
+        observableMap((s: any) => s.fields.item),
+        distinctUntilChanged()
+      ),
+      this.state.pipe(
+        observableMap((s: any) => s.selected.item),
+        distinctUntilChanged()
+      ),
       (matches: Array<SkyLinkRecordsMatchModel>,
       fields: {[key: string]: Array<SkyLinkRecordsFieldModel>},
       selected: {[key: string]: {[key: string]: boolean}}) => {
@@ -166,10 +182,13 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
   }
 
   get records() {
-    return Observable.combineLatest(
-      this.items.distinctUntilChanged(),
-      this.state.map((s: any) => s.matches.items).distinctUntilChanged(),
-      this.matchFields.distinctUntilChanged(),
+    return combineLatest(
+      this.items.pipe(distinctUntilChanged()),
+      this.state.pipe(
+        observableMap((s: any) => s.matches.items),
+        distinctUntilChanged()
+      ),
+      this.matchFields.pipe(distinctUntilChanged()),
       (items: Array<any>, matches: Array<SkyLinkRecordsMatchModel>, fields: Array<string>) => {
         return items.map(item => {
           let itemMatches = matches.filter(m => m.key === item[this.keyIdSelector]);
@@ -187,10 +206,16 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
   }
 
   get results() {
-    return this.state.map((s: any) => s.results.items).distinctUntilChanged();
+    return this.state.pipe(
+      observableMap((s: any) => s.results.items),
+      distinctUntilChanged()
+    );
   }
 
   get recordMatches() {
-    return this.state.map((s: any) => s.matches.items).distinctUntilChanged();
+    return this.state.pipe(
+      observableMap((s: any) => s.matches.items),
+      distinctUntilChanged()
+    );
   }
 }

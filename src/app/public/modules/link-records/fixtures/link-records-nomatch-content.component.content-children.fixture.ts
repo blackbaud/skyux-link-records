@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+
+import {
+  Observable,
+  of as observableOf
+} from 'rxjs';
+
 import { SKY_LINK_RECORDS_STATUSES } from '../link-records-statuses';
 import { SkyLinkRecordsMatchModel } from '../state/matches/match.model';
 
@@ -10,11 +15,11 @@ import { SkyLinkRecordsMatchModel } from '../state/matches/match.model';
 export class SkyLinkRecordsNoMatchContentContentChildrenTestComponent {
   public matchFields: Array<string> = ['description', 'name'];
 
-  public items: Observable<any> = Observable.of([
+  public items: Observable<any> = observableOf([
     {id: '1', address: 101, name: 'Apple', description: 'Anne eats apples'}
   ]);
 
-  public matches: Observable<Array<SkyLinkRecordsMatchModel>> = Observable.of([
+  public matches: Observable<Array<SkyLinkRecordsMatchModel>> = observableOf([
     new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Created,
