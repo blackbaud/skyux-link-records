@@ -1,3 +1,13 @@
+# 4.0.0-rc.0 (2020-04-21)
+
+### New features
+
+- Updated the pipeline to transpile to the [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview). [#16](https://github.com/blackbaud/skyux-link-records/pull/16)
+
+### Breaking changes
+
+- Dropped support for `rxjs@5`. Consumers may install `rxjs-compat@^6` to support older versions of `rxjs`. [#16](https://github.com/blackbaud/skyux-link-records/pull/16)
+
 # 3.2.0 (2019-10-16)
 
 - Added support for `@skyux-sdk/builder@3.10.0` and `microedge-rxstate@>=2.0.2`. [#11](https://github.com/blackbaud/skyux-link-records/pull/11)
