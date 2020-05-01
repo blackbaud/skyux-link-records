@@ -1,6 +1,5 @@
 import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
 import { AsyncItem } from 'microedge-rxstate/dist';
-const moment = require('moment');
 
 import {
   SkyLinkRecordsSelectedSetSelectedAction,
@@ -28,7 +27,7 @@ export class SkyLinkRecordsSelectedOrchestrator
       newStateItem[action.key] = fields;
 
       return new AsyncItem<{[key: string]: {[keyField: string]: boolean}}>(
-        newStateItem, moment(), state.loading);
+        newStateItem, new Date(), state.loading);
   }
 
   private clearSelected(
@@ -39,6 +38,6 @@ export class SkyLinkRecordsSelectedOrchestrator
       newStateItem[action.key] = undefined;
 
       return new AsyncItem<{[key: string]: {[keyField: string]: boolean}}>(
-        newStateItem, moment(), state.loading);
+        newStateItem, new Date(), state.loading);
   }
 }

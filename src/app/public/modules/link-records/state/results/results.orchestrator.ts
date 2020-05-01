@@ -1,6 +1,5 @@
 import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
 import { AsyncList } from 'microedge-rxstate/dist';
-const moment = require('moment');
 
 import { SkyLinkRecordsResultModel } from './result.model';
 import { SkyLinkRecordsResultsLoadAction } from './actions';
@@ -20,9 +19,9 @@ export class SkyLinkRecordsResultsOrchestrator
     const newResults = action.results.filter(c => c).map(g => new SkyLinkRecordsResultModel(g));
 
     if (action.refresh) {
-      return new AsyncList<SkyLinkRecordsResultModel>(newResults, moment());
+      return new AsyncList<SkyLinkRecordsResultModel>(newResults, new Date());
     }
 
-    return new AsyncList<SkyLinkRecordsResultModel>([...state.items, ...newResults], moment());
+    return new AsyncList<SkyLinkRecordsResultModel>([...state.items, ...newResults], new Date());
   }
 }

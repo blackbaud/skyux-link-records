@@ -1,6 +1,5 @@
 import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
 import { AsyncItem } from 'microedge-rxstate/dist';
-const moment = require('moment');
 
 import { SkyLinkRecordsFieldModel } from './field.model';
 import {
@@ -29,7 +28,7 @@ export class SkyLinkRecordsFieldsOrchestrator
       newStateItem[action.key] = newFields;
 
       return new AsyncItem<{[key: string]: Array<SkyLinkRecordsFieldModel>}>(
-        newStateItem, moment(), state.loading);
+        newStateItem, new Date(), state.loading);
   }
 
   private clearFields(
@@ -40,6 +39,6 @@ export class SkyLinkRecordsFieldsOrchestrator
       newStateItem[action.key] = undefined;
 
       return new AsyncItem<{[key: string]: Array<SkyLinkRecordsFieldModel>}>(
-        newStateItem, moment(), state.loading);
+        newStateItem, new Date(), state.loading);
   }
 }
