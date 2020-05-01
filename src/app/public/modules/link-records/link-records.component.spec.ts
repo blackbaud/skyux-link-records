@@ -133,7 +133,7 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     expect(
       fixture.detectChanges
-    ).toThrow();
+    ).toThrowError('\'keyIdSelector\' cannot be a match field.');
   }));
 
   it('Linked items are loaded in results state on ngOnInit', async(() => {

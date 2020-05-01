@@ -100,7 +100,6 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
     });
 
     this.matchFields.distinctUntilChanged().subscribe(fields => {
-      /* istanbul ignore if */
       if (fields.findIndex(f => f.key === this.keyIdSelector) > -1) {
         throw new Error("'keyIdSelector' cannot be a match field.");
       }
