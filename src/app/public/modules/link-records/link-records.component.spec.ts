@@ -1,6 +1,9 @@
 import {
   TestBed,
-  async
+  async,
+  fakeAsync,
+  tick,
+  flush
 } from '@angular/core/testing';
 import {
   Observable
@@ -49,6 +52,7 @@ import {
 import {
   SKY_LINK_RECORDS_STATUSES
 } from './link-records-statuses';
+import { ApplicationRef } from '@angular/core';
 
 describe('Component: SkyLinkRecordsComponent', () => {
   let fixture: any,
