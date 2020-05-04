@@ -76,6 +76,10 @@ describe('Component: SkyLinkRecordsComponent', () => {
     dispatcher = component.dispatcher as SkyLinkRecordsStateDispatcher;
   }));
 
+  afterEach(() => {
+    fixture.destroy();
+  });
+
   it('items are converted to observable on ngOnInit', () => {
     component.items = [{ id: '1' }];
 
@@ -126,8 +130,8 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
   it('error is thrown if fields key does equal keyIdSelector on ngOnInit', () => {
     try {
-      fixture.componentInstance.keyIdSelector = 'testKey';
-      fixture.componentInstance.matchFields = [
+      component.keyIdSelector = 'testKey';
+      component.matchFields = [
         {
           key: 'testKey'
         }
