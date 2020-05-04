@@ -1,11 +1,6 @@
 import {
   TestBed,
-  async,
-  fakeAsync,
-  tick,
-  flushMicrotasks,
-  flush,
-  discardPeriodicTasks
+  async
 } from '@angular/core/testing';
 import {
   Observable
@@ -54,7 +49,6 @@ import {
 import {
   SKY_LINK_RECORDS_STATUSES
 } from './link-records-statuses';
-import { throwError } from 'rxjs';
 
 describe('Component: SkyLinkRecordsComponent', () => {
   let fixture: any,
