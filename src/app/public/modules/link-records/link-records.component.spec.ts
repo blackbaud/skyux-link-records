@@ -124,17 +124,19 @@ describe('Component: SkyLinkRecordsComponent', () => {
       });
   }));
 
-  it('error is thrown if fields key does equal keyIdSelector on ngOnInit', async(() => {
-    let fields = [{
-      key: 'testKey'
-    }];
-    component.keyIdSelector = 'testKey';
-    component.matchFields = Observable.of(fields);
-
-    expect(
-      fixture.detectChanges
-    ).toThrowError('\'keyIdSelector\' cannot be a match field.');
-  }));
+  it('error is thrown if fields key does equal keyIdSelector on ngOnInit', () => {
+    try {
+      fixture.componentInstance.keyIdSelector = 'testKey';
+      fixture.componentInstance.matchFields = [
+        {
+          key: 'testKey'
+        }
+      ];
+      fixture.detectChanges();
+    } catch (error) {
+      expect(error).toEqual(new Error(`'keyIdSelector' cannot be a match field.`));
+    }
+  });
 
   it('Linked items are loaded in results state on ngOnInit', async(() => {
     let item = {
