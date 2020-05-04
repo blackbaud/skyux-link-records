@@ -1,6 +1,11 @@
 import {
   TestBed,
-  async
+  async,
+  fakeAsync,
+  tick,
+  flushMicrotasks,
+  flush,
+  discardPeriodicTasks
 } from '@angular/core/testing';
 import {
   Observable
@@ -49,6 +54,7 @@ import {
 import {
   SKY_LINK_RECORDS_STATUSES
 } from './link-records-statuses';
+import { throwError } from 'rxjs';
 
 describe('Component: SkyLinkRecordsComponent', () => {
   let fixture: any,
@@ -129,17 +135,17 @@ describe('Component: SkyLinkRecordsComponent', () => {
   }));
 
   it('error is thrown if fields key does equal keyIdSelector on ngOnInit', () => {
-    try {
-      component.keyIdSelector = 'testKey';
-      component.matchFields = [
-        {
-          key: 'testKey'
-        }
-      ];
-      fixture.detectChanges();
-    } catch (error) {
-      expect(error).toEqual(new Error(`'keyIdSelector' cannot be a match field.`));
-    }
+    expect(() => {
+        component.keyIdSelector = 'foo';
+        const matchFields = [
+          {
+            key: 'foo'
+          }
+        ];
+        component['validateMatchFields'](matchFields);
+        fail(`I shouldn't see this error!`);
+      }
+    ).toThrow(new Error(`'keyIdSelector' cannot be a match field.`));
   });
 
   it('Linked items are loaded in results state on ngOnInit', async(() => {
