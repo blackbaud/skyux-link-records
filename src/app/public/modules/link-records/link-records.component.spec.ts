@@ -137,7 +137,6 @@ describe('Component: SkyLinkRecordsComponent', () => {
           }
         ];
         component['validateMatchFields'](matchFields);
-        fail(`I shouldn't see this error!`);
       }
     ).toThrow(new Error(`'keyIdSelector' cannot be a match field.`));
   });
