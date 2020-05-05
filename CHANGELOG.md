@@ -1,3 +1,7 @@
+# 3.2.1 (2020-05-05)
+
+- Removed `moment` as a dependency. [#18](https://github.com/blackbaud/skyux-link-records/pull/18)
+
 # 3.2.0 (2019-10-16)
 
 - Added support for `@skyux-sdk/builder@3.10.0` and `microedge-rxstate@>=2.0.2`. [#11](https://github.com/blackbaud/skyux-link-records/pull/11)
