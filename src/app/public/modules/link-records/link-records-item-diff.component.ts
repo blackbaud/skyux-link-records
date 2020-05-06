@@ -1,19 +1,42 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
 import {
-  combineLatest
-} from 'rxjs';
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 
 import {
   distinctUntilChanged,
   map as observableMap
 } from 'rxjs/operators';
 
-import { SkyLinkRecordsState, SkyLinkRecordsStateDispatcher } from './state';
-import { SkyLinkRecordsSelectedSetSelectedAction } from './state/selected/actions';
-import { SkyLinkRecordsFieldModel } from './state/fields/field.model';
-import { SkyLinkRecordsMatchModel } from './state/matches/match.model';
-import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
+import {
+  combineLatest
+} from 'rxjs';
+
+import {
+  SkyLinkRecordsFieldModel
+} from './state/fields/field.model';
+
+import {
+  SkyLinkRecordsMatchModel
+} from './state/matches/match.model';
+
+import {
+  SkyLinkRecordsState
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
+  SkyLinkRecordsSelectedSetSelectedAction
+} from './state/selected/actions';
+
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
 
 @Component({
   selector: 'sky-link-records-item-diff',
@@ -53,7 +76,7 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
   }
 
   get fieldValues() {
-    return combineLatest(
+    return combineLatest([
       this.state.pipe(
         observableMap((s: any) => s.fields.item[this.key] || []),
         distinctUntilChanged()
@@ -72,6 +95,6 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
             selected: selected[f.key] || false
           };
         });
-      });
+      }]);
   }
 }

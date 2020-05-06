@@ -1,10 +1,19 @@
-import { Injectable } from '@angular/core';
-import { SkyLinkRecordsStateDispatcher } from './state';
+import {
+  Injectable
+} from '@angular/core';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
 import {
   SkyLinkRecordsMatchesSetStatusAction,
   SkyLinkRecordsMatchesSetItemAction
 } from './state/matches/actions';
-import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
+
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
 
 @Injectable()
 export class SkyLinkRecordsApi {
