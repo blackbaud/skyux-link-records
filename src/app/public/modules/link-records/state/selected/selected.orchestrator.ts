@@ -1,7 +1,5 @@
 import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
 import { AsyncItem } from '@skyux/list-builder-common';
-import * as moment_ from 'moment';
-const moment = moment_;
 
 import {
   SkyLinkRecordsSelectedSetSelectedAction,
@@ -29,7 +27,7 @@ export class SkyLinkRecordsSelectedOrchestrator
       newStateItem[action.key] = fields;
 
       return new AsyncItem<{[key: string]: {[keyField: string]: boolean}}>(
-        newStateItem, moment(), state.loading);
+        newStateItem, new Date(), state.loading);
   }
 
   private clearSelected(
@@ -40,6 +38,6 @@ export class SkyLinkRecordsSelectedOrchestrator
       newStateItem[action.key] = undefined;
 
       return new AsyncItem<{[key: string]: {[keyField: string]: boolean}}>(
-        newStateItem, moment(), state.loading);
+        newStateItem, new Date(), state.loading);
   }
 }

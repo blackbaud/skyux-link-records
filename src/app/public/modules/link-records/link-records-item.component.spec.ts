@@ -1,7 +1,7 @@
 import {
-  TestBed,
   async,
-  ComponentFixture
+  ComponentFixture,
+  TestBed
 } from '@angular/core/testing';
 
 import {
@@ -10,40 +10,55 @@ import {
 } from 'rxjs/operators';
 
 import {
-  SkyLinkRecordsMatchesLoadAction
-} from './state/matches/actions';
-import {
-  SkyLinkRecordsSelectedSetSelectedAction
-} from './state/selected/actions';
-import {
   SkyLinkRecordsFieldsSetFieldsAction
 } from './state/fields/actions';
+
 import {
   SkyLinkRecordsFieldModel
 } from './state/fields/field.model';
+
+import {
+  SkyLinkRecordsMatchesLoadAction
+} from './state/matches/actions';
 import {
   SkyLinkRecordsMatchModel
 } from './state/matches/match.model';
+
 import {
-  SkyLinkRecordsItemModel
-} from './link-records-item.model';
+  SkyLinkRecordsSelectedSetSelectedAction
+} from './state/selected/actions';
+
 import {
-  SkyLinkRecordsState,
-  SkyLinkRecordsStateDispatcher,
-  SkyLinkRecordsStateModel }
-from './state/';
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
+  SkyLinkRecordsState
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsStateModel
+} from './state/link-records-state.model';
+
 import {
   SkyLinkRecordsApi
 } from './link-records-api';
+
 import {
   SkyLinkRecordsItemComponent
-} from './';
+} from './link-records-item.component';
+
 import {
-  SKY_LINK_RECORDS_STATUSES
-} from './link-records-statuses';
+  SkyLinkRecordsItemModel
+} from './link-records-item.model';
+
 import {
   SkyLinkRecordsModule
 } from './link-records.module';
+
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
 
 describe('Component: SkyLinkRecordsItemComponent ', () => {
   let fixture: ComponentFixture<SkyLinkRecordsItemComponent>,

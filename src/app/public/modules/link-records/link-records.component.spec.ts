@@ -1,12 +1,11 @@
 import {
-  TestBed,
-  async
+  async,
+  TestBed
 } from '@angular/core/testing';
 
 import {
-  Observable,
-  of as observableOf
-} from 'rxjs';
+  expect
+} from '@skyux-sdk/testing';
 
 import {
   map as observableMap,
@@ -14,44 +13,62 @@ import {
 } from 'rxjs/operators';
 
 import {
-  expect
-} from '@skyux-sdk/testing';
+  Observable,
+  of as observableOf
+} from 'rxjs';
+
+import {
+  SkyLinkRecordsFieldsSetFieldsAction
+} from './state/fields/actions';
+
+import {
+  SkyLinkRecordsFieldModel
+} from './state/fields/field.model';
+
+import {
+  SkyLinkRecordsMatchesLoadAction
+} from './state/matches/actions';
+
+import {
+  SkyLinkRecordsMatchModel
+} from './state/matches/match.model';
+
+import {
+  SkyLinkRecordsResultsLoadAction
+} from './state/results/actions';
+
+import {
+  SkyLinkRecordsResultModel
+} from './state/results/result.model';
+
+import {
+  SkyLinkRecordsSelectedSetSelectedAction
+} from './state/selected/actions';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
+  SkyLinkRecordsState
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsStateModel
+} from './state/link-records-state.model';
+
+import {
+  SkyLinkRecordsComponent
+} from './link-records.component';
+
+import {
+  SkyLinkRecordsItemModel
+} from './link-records-item.model';
 
 import {
   SkyLinkRecordsModule
 } from './link-records.module';
-import {
-  SkyLinkRecordsComponent
-} from './link-records.component';
-import {
-  SkyLinkRecordsItemModel
-} from './link-records-item.model';
-import {
-  SkyLinkRecordsMatchModel
-} from './state/matches/match.model';
-import {
-  SkyLinkRecordsFieldModel
-} from './state/fields/field.model';
-import {
-  SkyLinkRecordsResultModel
-} from './state/results/result.model';
-import {
-  SkyLinkRecordsResultsLoadAction
-} from './state/results/actions';
-import {
-  SkyLinkRecordsSelectedSetSelectedAction
-} from './state/selected/actions';
-import {
-  SkyLinkRecordsFieldsSetFieldsAction
-} from './state/fields/actions';
-import {
-  SkyLinkRecordsMatchesLoadAction
-} from './state/matches/actions';
-import {
-  SkyLinkRecordsState,
-  SkyLinkRecordsStateDispatcher,
-  SkyLinkRecordsStateModel
-} from './state/';
+
 import {
   SKY_LINK_RECORDS_STATUSES
 } from './link-records-statuses';
@@ -81,6 +98,10 @@ describe('Component: SkyLinkRecordsComponent', () => {
     state = component.state as SkyLinkRecordsState;
     dispatcher = component.dispatcher as SkyLinkRecordsStateDispatcher;
   }));
+
+  afterEach(() => {
+    fixture.destroy();
+  });
 
   it('items are converted to observable on ngOnInit', () => {
     component.items = [{ id: '1' }];
@@ -136,17 +157,18 @@ describe('Component: SkyLinkRecordsComponent', () => {
       });
   }));
 
-  it('error is thrown if fields key does equal keyIdSelector on ngOnInit', async(() => {
-    let fields = [{
-      key: 'testKey'
-    }];
-    component.keyIdSelector = 'testKey';
-    component.matchFields = observableOf(fields);
-
-    expect(
-      fixture.detectChanges
-    ).toThrow();
-  }));
+  it('error is thrown if fields key does equal keyIdSelector on ngOnInit', () => {
+    expect(() => {
+        component.keyIdSelector = 'foo';
+        const matchFields = [
+          {
+            key: 'foo'
+          }
+        ];
+        component['validateMatchFields'](matchFields);
+      }
+    ).toThrow(new Error(`'keyIdSelector' cannot be a match field.`));
+  });
 
   it('Linked items are loaded in results state on ngOnInit', async(() => {
     let item = {

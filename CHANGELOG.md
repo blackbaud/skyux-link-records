@@ -1,3 +1,7 @@
+# 3.2.1 (2020-05-05)
+
+- Removed `moment` as a dependency. [#18](https://github.com/blackbaud/skyux-link-records/pull/18)
+
 # 4.0.0-rc.0 (2020-04-21)
 
 ### New features

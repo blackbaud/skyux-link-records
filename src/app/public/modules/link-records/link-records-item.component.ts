@@ -1,16 +1,12 @@
 import {
-  Component,
+  AfterContentInit,
   ChangeDetectionStrategy,
+  Component,
   Input,
-  TemplateRef,
   QueryList,
-  ViewChildren,
-  AfterContentInit
+  TemplateRef,
+  ViewChildren
 } from '@angular/core';
-
-import {
-  Observable
-} from 'rxjs';
 
 import {
   distinctUntilChanged,
@@ -19,26 +15,48 @@ import {
   take
 } from 'rxjs/operators';
 
-import { SkyLinkRecordsState, SkyLinkRecordsStateDispatcher } from './state';
 import {
-  SkyLinkRecordsMatchesSetStatusAction,
-  SkyLinkRecordsMatchesSetItemAction
+  Observable
+} from 'rxjs';
 
-} from './state/matches/actions';
 import {
   SkyLinkRecordsFieldsClearFieldsAction,
   SkyLinkRecordsFieldsSetFieldsAction
 } from './state/fields/actions';
+
+import {
+  SkyLinkRecordsFieldModel
+} from './state/fields/field.model';
+
+import {
+  SkyLinkRecordsState
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
+  SkyLinkRecordsMatchesSetStatusAction,
+  SkyLinkRecordsMatchesSetItemAction
+} from './state/matches/actions';
+
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
+
+import {
+  SkyLinkRecordsItemModel
+} from './link-records-item.model';
+
+import {
+  SkyLinkRecordsItemDiffComponent
+} from './link-records-item-diff.component';
+
 import {
   SkyLinkRecordsSelectedClearSelectedAction,
   SkyLinkRecordsSelectedSetSelectedAction
 } from './state/selected/actions';
-import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
-import { SkyLinkRecordsItemModel } from './link-records-item.model';
-import {
-  SkyLinkRecordsItemDiffComponent
-} from './link-records-item-diff.component';
-import { SkyLinkRecordsFieldModel } from './state/fields/field.model';
 
 @Component({
   selector: 'sky-link-records-item',

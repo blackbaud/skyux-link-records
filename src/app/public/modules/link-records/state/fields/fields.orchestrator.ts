@@ -1,7 +1,5 @@
 import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
 import { AsyncItem } from '@skyux/list-builder-common';
-import * as moment_ from 'moment';
-const moment = moment_;
 
 import { SkyLinkRecordsFieldModel } from './field.model';
 import {
@@ -30,7 +28,7 @@ export class SkyLinkRecordsFieldsOrchestrator
       newStateItem[action.key] = newFields;
 
       return new AsyncItem<{[key: string]: Array<SkyLinkRecordsFieldModel>}>(
-        newStateItem, moment(), state.loading);
+        newStateItem, new Date(), state.loading);
   }
 
   private clearFields(
@@ -41,6 +39,6 @@ export class SkyLinkRecordsFieldsOrchestrator
       newStateItem[action.key] = undefined;
 
       return new AsyncItem<{[key: string]: Array<SkyLinkRecordsFieldModel>}>(
-        newStateItem, moment(), state.loading);
+        newStateItem, new Date(), state.loading);
   }
 }

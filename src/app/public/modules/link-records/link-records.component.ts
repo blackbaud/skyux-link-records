@@ -1,15 +1,20 @@
 import {
   AfterContentInit,
+  ChangeDetectionStrategy,
   Component,
   ContentChildren,
-  ChangeDetectionStrategy,
+  forwardRef,
   Input,
   OnDestroy,
   OnInit,
   QueryList,
-  TemplateRef,
-  forwardRef
+  TemplateRef
 } from '@angular/core';
+
+import {
+  distinctUntilChanged,
+  map as observableMap
+} from 'rxjs/operators';
 
 import {
   combineLatest,
@@ -18,47 +23,76 @@ import {
 } from 'rxjs';
 
 import {
-  distinctUntilChanged,
-  map as observableMap
-} from 'rxjs/operators';
+  SkyLinkRecordsFieldModel
+} from './state/fields/field.model';
 
 import {
-  SkyLinkRecordsState,
-  SkyLinkRecordsStateDispatcher,
-  SkyLinkRecordsStateModel
-} from './state';
-import { SkyLinkRecordsMatchesLoadAction } from './state/matches/actions';
-import { SkyLinkRecordsResultsLoadAction } from './state/results/actions';
-import { SkyLinkRecordsMatchModel } from './state/matches/match.model';
-import { SkyLinkRecordsFieldModel } from './state/fields/field.model';
-import { SkyLinkRecordsResultModel } from './state/results/result.model';
-import { SkyLinkRecordsItemModel } from './link-records-item.model';
+  SkyLinkRecordsMatchesLoadAction
+} from './state/matches/actions';
+
 import {
-  SkyLinkRecordsItemTitleComponent
-} from './link-records-item-title.component';
+  SkyLinkRecordsMatchModel
+} from './state/matches/match.model';
+
+import {
+  SkyLinkRecordsResultsLoadAction
+} from './state/results/actions';
+
+import {
+  SkyLinkRecordsResultModel
+} from './state/results/result.model';
+
+import {
+  SkyLinkRecordsState
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
+  SkyLinkRecordsStateModel
+} from './state/link-records-state.model';
+
+import {
+  SkyLinkRecordsApi
+} from './link-records-api';
+
+import {
+  SkyLinkRecordsItemModel
+} from './link-records-item.model';
+
 import {
   SkyLinkRecordsItemContentComponent
 } from './link-records-item-content.component';
+
+import {
+  SkyLinkRecordsItemTitleComponent
+} from './link-records-item-title.component';
+
 import {
   SkyLinkRecordsMatchContentComponent
 } from './link-records-match-content.component';
+
 import {
   SkyLinkRecordsNoMatchContentComponent
 } from './link-records-nomatch-content.component';
-import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
-import { SkyLinkRecordsApi } from './link-records-api';
+
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
 
 @Component({
-    selector: 'sky-link-records',
-    templateUrl: './link-records.component.html',
-    styleUrls: ['./link-records.component.scss'],
-    providers: [
-      SkyLinkRecordsState,
-      SkyLinkRecordsStateDispatcher,
-      SkyLinkRecordsStateModel,
-      SkyLinkRecordsApi
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'sky-link-records',
+  templateUrl: './link-records.component.html',
+  styleUrls: ['./link-records.component.scss'],
+  providers: [
+    SkyLinkRecordsState,
+    SkyLinkRecordsStateDispatcher,
+    SkyLinkRecordsStateModel,
+    SkyLinkRecordsApi
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input() public items: Observable<Array<any>> = observableOf([]);
@@ -107,9 +141,7 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
     });
 
     this.matchFields.pipe(distinctUntilChanged()).subscribe(fields => {
-      if (fields.findIndex(f => f.key === this.keyIdSelector) > -1) {
-        throw new Error("'keyIdSelector' cannot be a match field.");
-      }
+      this.validateMatchFields(fields);
     });
 
     let sub = combineLatest(
@@ -217,5 +249,11 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
       observableMap((s: any) => s.matches.items),
       distinctUntilChanged()
     );
+  }
+
+  private validateMatchFields(fields: any[]): void {
+    if (fields.findIndex(f => f.key === this.keyIdSelector) > -1) {
+      throw new Error(`'keyIdSelector' cannot be a match field.`);
+    }
   }
 }

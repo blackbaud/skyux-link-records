@@ -1,15 +1,23 @@
-import { DebugElement } from '@angular/core';
 import {
-  TestBed,
-  async
+  DebugElement
+} from '@angular/core';
+
+import {
+  async,
+  TestBed
 } from '@angular/core/testing';
-import { SkyLinkRecordsModule } from './';
-import {
-  SkyLinkRecordsMatchContentInputTemplateTestComponent
-} from './fixtures/link-records-match-content.component.input-template.fixture';
+
 import {
   SkyLinkRecordsMatchContentContentChildrenTestComponent
 } from './fixtures/link-records-match-content.component.content-children.fixture';
+
+import {
+  SkyLinkRecordsMatchContentInputTemplateTestComponent
+} from './fixtures/link-records-match-content.component.input-template.fixture';
+
+import {
+  SkyLinkRecordsModule
+} from './link-records.module';
 
 describe('Component: SkyLinkRecordsMatchContentComponent', () => {
   let fixture: any,
