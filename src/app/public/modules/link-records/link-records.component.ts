@@ -107,9 +107,7 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
     });
 
     this.matchFields.pipe(distinctUntilChanged()).subscribe(fields => {
-      if (fields.findIndex(f => f.key === this.keyIdSelector) > -1) {
-        throw new Error("'keyIdSelector' cannot be a match field.");
-      }
+      this.validateMatchFields(fields);
     });
 
     let sub = combineLatest(
@@ -217,5 +215,11 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
       observableMap((s: any) => s.matches.items),
       distinctUntilChanged()
     );
+  }
+
+  private validateMatchFields(fields: any[]): void {
+    if (fields.findIndex(f => f.key === this.keyIdSelector) > -1) {
+      throw new Error(`'keyIdSelector' cannot be a match field.`);
+    }
   }
 }

@@ -1,7 +1,11 @@
 import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
+<<<<<<< HEAD
 import { AsyncList } from '@skyux/list-builder-common';
 import * as moment_ from 'moment';
 const moment = moment_;
+=======
+import { AsyncList } from 'microedge-rxstate/dist';
+>>>>>>> master
 
 import { SKY_LINK_RECORDS_STATUSES } from '../../link-records-statuses';
 import { SkyLinkRecordsMatchModel } from './match.model';
@@ -32,10 +36,10 @@ export class SkyLinkRecordsMatchesOrchestrator
         || !SKY_LINK_RECORDS_STATUSES.isValid(status));
 
     if (action.refresh) {
-      return new AsyncList<SkyLinkRecordsMatchModel>([...newMatches], moment());
+      return new AsyncList<SkyLinkRecordsMatchModel>([...newMatches], new Date());
     }
 
-    return new AsyncList<SkyLinkRecordsMatchModel>([...state.items, ...newMatches], moment());
+    return new AsyncList<SkyLinkRecordsMatchModel>([...state.items, ...newMatches], new Date());
   }
 
   private setStatus(
@@ -54,7 +58,7 @@ export class SkyLinkRecordsMatchesOrchestrator
         .filter(m => m.status !== SKY_LINK_RECORDS_STATUSES.NoMatch
           || !SKY_LINK_RECORDS_STATUSES.isValid(status));
 
-      return new AsyncList<SkyLinkRecordsMatchModel>([...newMatches], moment());
+      return new AsyncList<SkyLinkRecordsMatchModel>([...newMatches], new Date());
   }
 
   private setItem(
@@ -73,6 +77,6 @@ export class SkyLinkRecordsMatchesOrchestrator
         .filter(m => m.status !== SKY_LINK_RECORDS_STATUSES.NoMatch
           || !SKY_LINK_RECORDS_STATUSES.isValid(status));
 
-      return new AsyncList<SkyLinkRecordsMatchModel>([...newMatches], moment());
+      return new AsyncList<SkyLinkRecordsMatchModel>([...newMatches], new Date());
   }
 }
