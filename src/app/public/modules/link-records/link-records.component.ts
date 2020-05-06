@@ -144,7 +144,7 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
       this.validateMatchFields(fields);
     });
 
-    let sub = combineLatest([
+    let sub = combineLatest(
       this.state.pipe(
         observableMap((s: any) => s.matches.items),
         distinctUntilChanged()
@@ -182,7 +182,7 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
         }).filter(f => f !== undefined);
 
         this.dispatcher.next(new SkyLinkRecordsResultsLoadAction(newResultItems, true));
-      }]).subscribe();
+      }).subscribe();
 
     this.subscriptions.push(sub);
   }

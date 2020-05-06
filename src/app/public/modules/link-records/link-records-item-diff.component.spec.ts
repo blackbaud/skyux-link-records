@@ -1,7 +1,7 @@
 import {
-  TestBed,
   async,
-  ComponentFixture
+  ComponentFixture,
+  TestBed
 } from '@angular/core/testing';
 
 import {
@@ -10,25 +10,37 @@ import {
 } from 'rxjs/operators';
 
 import {
-  SkyLinkRecordsState,
-  SkyLinkRecordsStateDispatcher,
-  SkyLinkRecordsStateModel
-} from './state/';
-import {
-  SkyLinkRecordsMatchModel
-} from './state/matches/match.model';
-import {
   SkyLinkRecordsFieldsSetFieldsAction
 } from './state/fields/actions';
+
 import {
   SkyLinkRecordsFieldModel
 } from './state/fields/field.model';
+
+import {
+  SkyLinkRecordsStateModel
+} from './state/link-records-state.model';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
+  SkyLinkRecordsState
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsMatchModel
+} from './state/matches/match.model';
+
 import {
   SkyLinkRecordsItemDiffComponent
 } from './link-records-item-diff.component';
+
 import {
   SKY_LINK_RECORDS_STATUSES
 } from './link-records-statuses';
+
 import {
   SkyLinkRecordsModule
 } from './link-records.module';

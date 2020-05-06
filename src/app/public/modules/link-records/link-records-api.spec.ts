@@ -1,17 +1,35 @@
-import { async } from '@angular/core/testing/';
+import {
+  async
+} from '@angular/core/testing/';
 
 import {
   take
 } from 'rxjs/operators';
 
 import {
-  SkyLinkRecordsStateDispatcher,
-  SkyLinkRecordsStateModel,
+  SkyLinkRecordsMatchesLoadAction
+} from './state/matches/actions';
+
+import {
+  SkyLinkRecordsStateModel
+} from './state/link-records-state.model';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
   SkyLinkRecordsState
-} from './state';
-import { SkyLinkRecordsApi } from './link-records-api';
-import { SkyLinkRecordsMatchesLoadAction } from './state/matches/actions';
-import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsApi
+} from './link-records-api';
+
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
+
 
 describe('Injectable: Link Records API ', () => {
   let linkRecordApi: SkyLinkRecordsApi, dispatcher: SkyLinkRecordsStateDispatcher,

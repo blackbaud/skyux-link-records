@@ -76,7 +76,7 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
   }
 
   get fieldValues() {
-    return combineLatest([
+    return combineLatest(
       this.state.pipe(
         observableMap((s: any) => s.fields.item[this.key] || []),
         distinctUntilChanged()
@@ -95,6 +95,6 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
             selected: selected[f.key] || false
           };
         });
-      }]);
+      });
   }
 }

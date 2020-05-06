@@ -1,12 +1,11 @@
 import {
-  TestBed,
-  async
+  async,
+  TestBed
 } from '@angular/core/testing';
 
 import {
-  Observable,
-  of as observableOf
-} from 'rxjs';
+  expect
+} from '@skyux-sdk/testing';
 
 import {
   map as observableMap,
@@ -14,44 +13,62 @@ import {
 } from 'rxjs/operators';
 
 import {
-  expect
-} from '@skyux-sdk/testing';
+  Observable,
+  of as observableOf
+} from 'rxjs';
+
+import {
+  SkyLinkRecordsFieldsSetFieldsAction
+} from './state/fields/actions';
+
+import {
+  SkyLinkRecordsFieldModel
+} from './state/fields/field.model';
+
+import {
+  SkyLinkRecordsMatchesLoadAction
+} from './state/matches/actions';
+
+import {
+  SkyLinkRecordsMatchModel
+} from './state/matches/match.model';
+
+import {
+  SkyLinkRecordsResultsLoadAction
+} from './state/results/actions';
+
+import {
+  SkyLinkRecordsResultModel
+} from './state/results/result.model';
+
+import {
+  SkyLinkRecordsSelectedSetSelectedAction
+} from './state/selected/actions';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
+  SkyLinkRecordsState
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsStateModel
+} from './state/link-records-state.model';
+
+import {
+  SkyLinkRecordsComponent
+} from './link-records.component';
+
+import {
+  SkyLinkRecordsItemModel
+} from './link-records-item.model';
 
 import {
   SkyLinkRecordsModule
 } from './link-records.module';
-import {
-  SkyLinkRecordsComponent
-} from './link-records.component';
-import {
-  SkyLinkRecordsItemModel
-} from './link-records-item.model';
-import {
-  SkyLinkRecordsMatchModel
-} from './state/matches/match.model';
-import {
-  SkyLinkRecordsFieldModel
-} from './state/fields/field.model';
-import {
-  SkyLinkRecordsResultModel
-} from './state/results/result.model';
-import {
-  SkyLinkRecordsResultsLoadAction
-} from './state/results/actions';
-import {
-  SkyLinkRecordsSelectedSetSelectedAction
-} from './state/selected/actions';
-import {
-  SkyLinkRecordsFieldsSetFieldsAction
-} from './state/fields/actions';
-import {
-  SkyLinkRecordsMatchesLoadAction
-} from './state/matches/actions';
-import {
-  SkyLinkRecordsState,
-  SkyLinkRecordsStateDispatcher,
-  SkyLinkRecordsStateModel
-} from './state/';
+
 import {
   SKY_LINK_RECORDS_STATUSES
 } from './link-records-statuses';
