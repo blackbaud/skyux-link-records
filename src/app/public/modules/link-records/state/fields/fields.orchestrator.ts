@@ -1,11 +1,5 @@
 import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
-<<<<<<< HEAD
 import { AsyncItem } from '@skyux/list-builder-common';
-import * as moment_ from 'moment';
-const moment = moment_;
-=======
-import { AsyncItem } from 'microedge-rxstate/dist';
->>>>>>> master
 
 import { SkyLinkRecordsFieldModel } from './field.model';
 import {
