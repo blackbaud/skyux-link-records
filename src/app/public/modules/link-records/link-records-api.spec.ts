@@ -30,7 +30,6 @@ import {
   SKY_LINK_RECORDS_STATUSES
 } from './link-records-statuses';
 
-
 describe('Injectable: Link Records API ', () => {
   let linkRecordApi: SkyLinkRecordsApi, dispatcher: SkyLinkRecordsStateDispatcher,
     state: SkyLinkRecordsState;

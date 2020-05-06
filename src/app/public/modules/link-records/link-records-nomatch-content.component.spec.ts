@@ -4,7 +4,7 @@ import {
 
 import {
   async,
-  TestBed,
+  TestBed
 } from '@angular/core/testing';
 
 import {
