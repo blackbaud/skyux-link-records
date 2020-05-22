@@ -1,5 +1,5 @@
 import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
-import { AsyncList } from 'microedge-rxstate/dist';
+import { AsyncList } from '@skyux/list-builder-common';
 
 import { SkyLinkRecordsResultModel } from './result.model';
 import { SkyLinkRecordsResultsLoadAction } from './actions';

@@ -1,5 +1,5 @@
 import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
-import { AsyncItem } from 'microedge-rxstate/dist';
+import { AsyncItem } from '@skyux/list-builder-common';
 
 import {
   SkyLinkRecordsSelectedSetSelectedAction,

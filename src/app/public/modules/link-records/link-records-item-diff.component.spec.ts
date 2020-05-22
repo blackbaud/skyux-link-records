@@ -1,28 +1,46 @@
 import {
-  TestBed,
   async,
-  ComponentFixture
+  ComponentFixture,
+  TestBed
 } from '@angular/core/testing';
+
 import {
-  SkyLinkRecordsState,
-  SkyLinkRecordsStateDispatcher,
-  SkyLinkRecordsStateModel
-} from './state/';
-import {
-  SkyLinkRecordsMatchModel
-} from './state/matches/match.model';
+  map as observableMap,
+  take
+} from 'rxjs/operators';
+
 import {
   SkyLinkRecordsFieldsSetFieldsAction
 } from './state/fields/actions';
+
 import {
   SkyLinkRecordsFieldModel
 } from './state/fields/field.model';
+
+import {
+  SkyLinkRecordsStateModel
+} from './state/link-records-state.model';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
+  SkyLinkRecordsState
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsMatchModel
+} from './state/matches/match.model';
+
 import {
   SkyLinkRecordsItemDiffComponent
 } from './link-records-item-diff.component';
+
 import {
   SKY_LINK_RECORDS_STATUSES
 } from './link-records-statuses';
+
 import {
   SkyLinkRecordsModule
 } from './link-records.module';
@@ -85,7 +103,10 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
     let fieldKey = 'testKey';
     component.setFieldSelected(fieldKey, {checked: true});
 
-    state.map((s: any) => s.selected.item).take(1)
+    state.pipe(
+      observableMap((s: any) => s.selected.item),
+      take(1)
+    )
       .subscribe((s: any) => {
         let selected = s['1']['testKey'];
         expect(selected).toBe(true);
@@ -118,7 +139,10 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
     let fieldKey = 'testKey';
     component.setFieldSelected(fieldKey, {checked: false});
 
-    state.map((s: any) => s.selected.item).take(1)
+    state.pipe(
+      observableMap((s: any) => s.selected.item),
+      take(1)
+    )
       .subscribe((s: any) => {
         let selected = s['1']['testKey'];
         expect(selected).toBe(false);
@@ -152,7 +176,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     fixture.detectChanges();
 
-    component.fieldValues.take(1)
+    component.fieldValues.pipe(take(1))
       .subscribe((f: any) => {
         let field = f;
         expect(field).toEqual([]);
@@ -183,7 +207,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     fixture.detectChanges();
 
-    component.fieldValues.take(1)
+    component.fieldValues.pipe(take(1))
       .subscribe((f: any) => {
         let field = f;
         expect(field.length).toEqual(2);

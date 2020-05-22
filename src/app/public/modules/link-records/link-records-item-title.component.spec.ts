@@ -1,15 +1,23 @@
-import { DebugElement } from '@angular/core';
 import {
-  TestBed,
-  async
+  DebugElement
+} from '@angular/core';
+
+import {
+  async,
+  TestBed
 } from '@angular/core/testing';
-import { SkyLinkRecordsModule } from './';
-import {
-  SkyLinkRecordsItemTitleInputTemplateTestComponent
-} from './fixtures/link-records-item-title.component.input-template.fixture';
+
 import {
   SkyLinkRecordsItemTitleContentChildrenTestComponent
 } from './fixtures/link-records-item-title.component.content-children.fixture';
+
+import {
+  SkyLinkRecordsItemTitleInputTemplateTestComponent
+} from './fixtures/link-records-item-title.component.input-template.fixture';
+
+import {
+  SkyLinkRecordsModule
+} from './link-records.module';
 
 describe('Component: SkyLinkRecordsItemTitleComponent', () => {
   let fixture: any,

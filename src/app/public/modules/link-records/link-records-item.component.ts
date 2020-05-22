@@ -1,36 +1,62 @@
 import {
-  Component,
+  AfterContentInit,
   ChangeDetectionStrategy,
+  Component,
   Input,
-  TemplateRef,
   QueryList,
-  ViewChildren,
-  AfterContentInit
+  TemplateRef,
+  ViewChildren
 } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/distinctUntilChanged';
-
-import { SkyLinkRecordsState, SkyLinkRecordsStateDispatcher } from './state';
 import {
-  SkyLinkRecordsMatchesSetStatusAction,
-  SkyLinkRecordsMatchesSetItemAction
+  distinctUntilChanged,
+  filter,
+  map as observableMap,
+  take
+} from 'rxjs/operators';
 
-} from './state/matches/actions';
+import {
+  Observable
+} from 'rxjs';
+
 import {
   SkyLinkRecordsFieldsClearFieldsAction,
   SkyLinkRecordsFieldsSetFieldsAction
 } from './state/fields/actions';
+
+import {
+  SkyLinkRecordsFieldModel
+} from './state/fields/field.model';
+
+import {
+  SkyLinkRecordsState
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
+  SkyLinkRecordsMatchesSetStatusAction,
+  SkyLinkRecordsMatchesSetItemAction
+} from './state/matches/actions';
+
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
+
+import {
+  SkyLinkRecordsItemModel
+} from './link-records-item.model';
+
+import {
+  SkyLinkRecordsItemDiffComponent
+} from './link-records-item-diff.component';
+
 import {
   SkyLinkRecordsSelectedClearSelectedAction,
   SkyLinkRecordsSelectedSetSelectedAction
 } from './state/selected/actions';
-import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
-import { SkyLinkRecordsItemModel } from './link-records-item.model';
-import {
-  SkyLinkRecordsItemDiffComponent
-} from './link-records-item-diff.component';
-import { SkyLinkRecordsFieldModel } from './state/fields/field.model';
 
 @Component({
   selector: 'sky-link-records-item',
@@ -67,10 +93,11 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
   }
 
   get updatedFieldsTotal(): Observable<number> {
-    return this.state
-      .map(s => s.selected.item[this.record.key] || {})
-      .map(fields => Object.keys(fields).filter(k => fields[k]).length)
-      .distinctUntilChanged();
+    return this.state.pipe(
+      observableMap(s => s.selected.item[this.record.key] || {}),
+      observableMap(fields => Object.keys(fields).filter(k => fields[k]).length),
+      distinctUntilChanged()
+    );
   }
 
   public link() {
@@ -138,9 +165,11 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
     this.dispatcher.next(new SkyLinkRecordsFieldsSetFieldsAction(this.record.key, filteredMatchFields));
 
     if (filteredMatchFields.length > 0) {
-      this.state.map((s: any) => s.selected.item)
-        .filter((s: any) => this.selectedByDefault !== undefined)
-        .take(1)
+      this.state.pipe(
+        observableMap((s: any) => s.selected.item),
+        filter((s: any) => this.selectedByDefault !== undefined),
+        take(1)
+      )
         .subscribe((selected: any) => {
           filteredMatchFields.forEach(matchField => {
             if (selected[this.record.key] && selected[this.record.key].hasOwnProperty(matchField.key)) {

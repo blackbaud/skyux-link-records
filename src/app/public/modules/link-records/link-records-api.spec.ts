@@ -1,12 +1,34 @@
-import { async } from '@angular/core/testing/';
 import {
-  SkyLinkRecordsStateDispatcher,
-  SkyLinkRecordsStateModel,
+  async
+} from '@angular/core/testing/';
+
+import {
+  take
+} from 'rxjs/operators';
+
+import {
+  SkyLinkRecordsMatchesLoadAction
+} from './state/matches/actions';
+
+import {
+  SkyLinkRecordsStateModel
+} from './state/link-records-state.model';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
   SkyLinkRecordsState
-} from './state';
-import { SkyLinkRecordsApi } from './link-records-api';
-import { SkyLinkRecordsMatchesLoadAction } from './state/matches/actions';
-import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsApi
+} from './link-records-api';
+
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
 
 describe('Injectable: Link Records API ', () => {
   let linkRecordApi: SkyLinkRecordsApi, dispatcher: SkyLinkRecordsStateDispatcher,
@@ -42,7 +64,7 @@ describe('Injectable: Link Records API ', () => {
 
     linkRecordApi.addSelectedItem(expectedKey, newItem);
 
-    state.take(1).subscribe(s => {
+    state.pipe(take(1)).subscribe(s => {
       expect(s.matches.items[0].status).toEqual(SKY_LINK_RECORDS_STATUSES.Selected);
       expect(s.matches.items[0].item).toEqual(newItem);
     });
@@ -69,7 +91,7 @@ describe('Injectable: Link Records API ', () => {
 
     linkRecordApi.addSelectedItem(expectedKey, newItem);
 
-    state.take(1).subscribe(s => {
+    state.pipe(take(1)).subscribe(s => {
       expect(s.matches.items[0].item).toEqual(undefined);
     });
   }));
@@ -94,7 +116,7 @@ describe('Injectable: Link Records API ', () => {
 
     linkRecordApi.removeSelectedItem(expectedKey);
 
-    state.take(1).subscribe(s => {
+    state.pipe(take(1)).subscribe(s => {
       expect(s.matches.items[0].status).toEqual(SKY_LINK_RECORDS_STATUSES.NoMatch);
       expect(s.matches.items[0].item).toEqual(undefined);
     });

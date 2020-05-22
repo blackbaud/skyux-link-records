@@ -1,17 +1,42 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import {
+  distinctUntilChanged,
+  map as observableMap
+} from 'rxjs/operators';
 
-import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/take';
+import {
+  combineLatest
+} from 'rxjs';
 
-import { SkyLinkRecordsState, SkyLinkRecordsStateDispatcher } from './state';
-import { SkyLinkRecordsSelectedSetSelectedAction } from './state/selected/actions';
-import { SkyLinkRecordsFieldModel } from './state/fields/field.model';
-import { SkyLinkRecordsMatchModel } from './state/matches/match.model';
-import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
+import {
+  SkyLinkRecordsFieldModel
+} from './state/fields/field.model';
+
+import {
+  SkyLinkRecordsMatchModel
+} from './state/matches/match.model';
+
+import {
+  SkyLinkRecordsState
+} from './state/link-records-state.state-node';
+
+import {
+  SkyLinkRecordsStateDispatcher
+} from './state/link-records-state.rxstate';
+
+import {
+  SkyLinkRecordsSelectedSetSelectedAction
+} from './state/selected/actions';
+
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
 
 @Component({
   selector: 'sky-link-records-item-diff',
@@ -51,9 +76,15 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
   }
 
   get fieldValues() {
-    return Observable.combineLatest(
-      this.state.map((s: any) => s.fields.item[this.key] || []).distinctUntilChanged(),
-      this.state.map((s: any) => s.selected.item[this.key] || {}).distinctUntilChanged(),
+    return combineLatest(
+      this.state.pipe(
+        observableMap((s: any) => s.fields.item[this.key] || []),
+        distinctUntilChanged()
+      ),
+      this.state.pipe(
+        observableMap((s: any) => s.selected.item[this.key] || {}),
+        distinctUntilChanged()
+      ),
       (fields: SkyLinkRecordsFieldModel[], selected: { [key: string]: boolean }) => {
         return fields.map(f => {
           let checkCurrentValue: boolean = this.showNewFieldValues ? true : f.currentValue;
