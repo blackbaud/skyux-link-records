@@ -1,3 +1,7 @@
+# 4.0.1 (2020-08-07)
+
+- Added support for `@skyux/theme@4.8.0` and `@skyux-sdk/builder@4.3.0`. [#28](https://github.com/blackbaud/skyux-link-records/pull/28)
+
 # 4.0.0 (2020-05-22)
 
 ### New features
